@@ -1,0 +1,26 @@
+{
+  "portNumber": 3000,
+  "appClientId": "go-lo-v0.0.1",
+  "ldapAddress": "xx",
+  "contextRoot" : "/",
+  "useBuild": false,
+  "applicationVersion":"",
+  "environment":"dev",
+  "authentication": {
+    "secretKey": "TOP*SECRET!KEY",
+    "authorizedClients": [
+      {
+        "id": "browser",
+        "secret": "golo*app"
+      }
+    ]
+  },
+  "mongodb": {
+    "host": "localhost",
+    "user": "",
+    "password": "",
+    "database": "test",
+    "port": 27017,
+    "useSSL": false
+  }
+}
