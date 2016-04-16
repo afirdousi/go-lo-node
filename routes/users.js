@@ -11,12 +11,15 @@ var users = require('../db/users');
 
 router.get("/", function(req, res, next) {
 
+    //console.log("Calling db/getUsers() ...");
     users
         .getUsers()
         .then(function(result) {
+            console.log("getUsers() :SUCCESS : ", result);
           res.json(result);
         })
         .catch(function(err) {
+            console.log("getUsers() :ERROR : ", err);
           next(err);
         });
 

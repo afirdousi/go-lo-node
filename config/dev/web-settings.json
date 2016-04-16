@@ -19,7 +19,7 @@
     "host": "localhost",
     "user": "",
     "password": "",
-    "database": "test",
+    "database": "golo",
     "port": 27017,
     "useSSL": false
   }

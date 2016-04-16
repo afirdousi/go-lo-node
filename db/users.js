@@ -16,12 +16,16 @@ Users.prototype = {
         return dbHelpers
             .getUserProfileCollection()
             .then(function(collection) {
+
+                console.log("db/user / getUsers() : collection ", collection.find);
                 var criteria = {};
                 return Q.when(collection.find(criteria))
                     .then(dbHelpers.resultAsArray)
                     .then(function(data) {
-                        //return _.map(data, convertToModelObject);
-                        return data;
+                        return _.map(data, convertToModelObject);
+
+                        //console.log("db/user / getUsers() : data ", collection);
+                        //return data;
                     });
             });
     },
@@ -82,8 +86,12 @@ Users.prototype = {
 };
 
 function convertToModelObject(item) {
-    item.userId = item._id.toString();
-    item.fullName =  item.userName.split('(')[0];
+    item.id = item._id.toString();
+    item.userName =  item.username;
+    item.name = [item.lastName, ", " ,item.firstName].join('');
+
+    console.log(item);
+
     delete item._id;
     return item;
 }
