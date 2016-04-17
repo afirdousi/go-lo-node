@@ -30,9 +30,17 @@ DbHelpers.prototype = {
 
     getUserProfileCollection: function() {
         return this.getCollection("golo_user_profile");
-    }
+    },
 
+    getMessageCollection: function() {
+        return this.getCollection("golo_user_message");
+    },
+
+    getOfferCollection: function() {
+        return this.getCollection("golo_offer");
+    }
 };
+
 
 function PromiseWrappedCollection(collection) {
     this.collection = collection;
