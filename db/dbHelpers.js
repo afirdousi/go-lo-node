@@ -38,6 +38,9 @@ DbHelpers.prototype = {
 
     getOfferCollection: function() {
         return this.getCollection("golo_offer");
+    },
+    getFriendsCollection: function() {
+        return this.getCollection("golo_friends");
     }
 };
 
