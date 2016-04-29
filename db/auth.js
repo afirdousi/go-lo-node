@@ -7,17 +7,17 @@ var Q = require('q');
 var mongodbClient = require('./mongodbClient');
 var dbHelpers = require('./dbHelpers');
 
-function Users() {
+function Auth() {
 }
 
-Users.prototype = {
+Auth.prototype = {
 
-    getUsers: function() {
+    login: function(criteria) {
         return dbHelpers
             .getUserProfileCollection()
             .then(function(collection) {
 
-                var criteria = {};
+                //var criteria = {};
                 return Q.when(collection.find(criteria))
                     .then(dbHelpers.resultAsArray)
                     .then(function(data) {
@@ -29,60 +29,14 @@ Users.prototype = {
             });
     },
 
-    getUser: function(userId) {
-        return dbHelpers
-            .getUserProfileCollection()
-            .then(function(collection) {
-                var criteria = { _id: userId };
-                return collection.findOne(criteria)
-                    .then(function(data) {
-                        //return data ? convertToModelObject(data) : null;
-                        return data;
-                    });
-            });
-    },
 
-    addUser: function(userInfo) {
-        return dbHelpers
-            .getUserProfileCollection()
-            .then(function(collection) {
-                return collection.insert(convertFromModelObject(userInfo))
-                    .then(function(data) {
-                        if(userInfo.userList){
-                            return data.result;
-                        }else{
-                            return { userId: userInfo._id.toString() };
-                        }
-                    });
-            });
-    },
-
-    updateUser: function(userInfo) {
-        return dbHelpers
-            .getUserProfileCollection()
-            .then(function(collection) {
-                var criteria = { "_id": userInfo.userId };
-                return collection.update(criteria, convertFromModelObject(userInfo))
-                    .then(function(data) {
-                        return { userId: userInfo._id.toString() };
-                    });
-            });
-    },
-
-    deleteUser: function(userId) {
-        return dbHelpers
-            .getUserProfileCollection()
-            .then(function(collection) {
-                var criteria = { "_id": userId };
-                return collection.remove(criteria)
-                    .then(function() {
-                        return { userId: userId };
-                    });
-            });
-    },
 
     close: mongodbClient.close.bind(mongodbClient)
 };
+
+
+
+
 
 function convertToModelObject(item) {
     item.id = item._id.toString();
@@ -111,4 +65,4 @@ function convertFromModelObject(item) {
     return item;
 }
 
-module.exports = new Users();
+module.exports = new Auth();

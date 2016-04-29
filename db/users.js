@@ -17,7 +17,6 @@ Users.prototype = {
             .getUserProfileCollection()
             .then(function(collection) {
 
-                console.log("db/user / getUsers() : collection ", collection.find);
                 var criteria = {};
                 return Q.when(collection.find(criteria))
                     .then(dbHelpers.resultAsArray)
