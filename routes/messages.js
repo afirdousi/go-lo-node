@@ -9,10 +9,12 @@ var messages = require('../db/messages');
 //});
 
 
-router.get("/", function(req, res, next) {
+router.get("/:userID", function(req, res, next) {
+
+    console.log("here", req.params.userID);
 
     messages
-        .getMessages()
+        .getMessages(req.params.userID)
         .then(function(result) {
             console.log("getMessages() :SUCCESS : ", result);
             res.json(result);

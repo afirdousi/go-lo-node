@@ -29,11 +29,13 @@ Messages.prototype = {
             });
     },
 
-    getMessages: function(messageId) {
+    getMessages: function(userID) {
+
+
         return dbHelpers
             .getMessageCollection()
             .then(function(collection) {
-                var criteria = { _id: messageId };
+                var criteria = { $or:[ { "sent.userID":userID},{ "received.userID":userID}] };
                 return collection.findOne(criteria)
                     .then(function(data) {
                         //return data ? convertToModelObject(data) : null;
