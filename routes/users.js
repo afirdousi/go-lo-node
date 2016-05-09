@@ -25,4 +25,21 @@ router.get("/", function(req, res, next) {
 
 });
 
+
+router.get("/byZip/:zipCode", function(req, res, next) {
+
+    console.log("Calling users/byZip/:zipCode ...");
+    users
+        .getUserByZip(req.params.zipCode)
+        .then(function(result) {
+            console.log("getUserByZip() :SUCCESS : ", result);
+            res.json(result);
+        })
+        .catch(function(err) {
+            console.log("getUserByZip() :ERROR : ", err);
+            next(err);
+        });
+
+});
+
 module.exports = router;

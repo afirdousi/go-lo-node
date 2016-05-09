@@ -42,6 +42,29 @@ Users.prototype = {
             });
     },
 
+
+    getUserByZip: function(zipCode) {
+        console.log("getUserByZip called with parameter :",zipCode);
+        return dbHelpers
+            .getUserProfileCollection()
+            .then(function(collection) {
+                var criteria = { zip: parseInt(zipCode) };
+                return collection.find(criteria)
+                    .then(dbHelpers.resultAsArray)
+                    .then(function(data) {
+                        //return data ? convertToModelObject(data) : null;
+
+                        console.log("getUserByZip:",data);
+
+                        return _.map(data, convertToModelObject);
+
+
+                       // return data;
+                    });
+            });
+    },
+
+
     addUser: function(userInfo) {
         return dbHelpers
             .getUserProfileCollection()
@@ -85,13 +108,12 @@ Users.prototype = {
 };
 
 function convertToModelObject(item) {
-    item.id = item._id.toString();
-    item.userName =  item.username;
-    item.name = [item.lastName, ", " ,item.firstName].join('');
-
     console.log(item);
+    //item.id = item._id.toString();
+    item.name =  item.firstName + item.lastName;
 
-    delete item._id;
+    console.log("convertToModelObject item : ",item);
+
     return item;
 }
 function convertFromModelObject(item) {
